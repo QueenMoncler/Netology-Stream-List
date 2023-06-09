@@ -34,12 +34,12 @@ public class Main {
 
 
         System.out.println("\nCписок потенциально работоспособных людей с высшим образованием: " +
-                "\n" + persons.stream().filter(x -> {
-                    if (x.getSex() == Sex.WOMAN & x.getAge() >= 18 & x.getAge() <= 60) return true;
-                    else if (x.getSex() == Sex.MAN & x.getAge() >= 18 & x.getAge() <= 65) return true;
-                    return false;
-                })
+                "\n" + persons.stream()
                 .filter(w -> w.getEducation() == Education.HIGHER)
+                .filter(w -> w.getAge() >= 18)
+                .filter(w ->
+                        w.getSex() == Sex.WOMAN ? w.getAge() <= 60 : w.getAge() <= 65
+                )
                 .sorted(Comparator.comparing(e -> e.getFamily()))
                 .map(e -> e.getFamily())
                 .collect(Collectors.toList()));
